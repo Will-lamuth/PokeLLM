@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
+  <title>Pokémon Assistant</title>
+</head>
+<body>
+    <div id="content-wrapper">
+        <div id="heading">
+            <h1>Pokémon<span>LLM</span></h1>
+            <img id="pokeball-img"  src="../static/pokeball-removebg-preview.png">
+        </div>
+        
+        <div id="chatLog" class="chatLog"></div>
+
+        <div id="inputArea">
+            <textarea id="userInput" rows="1" placeholder="Ask for a Gen 1/2 team..."></textarea>
+            <div id="button-wrapper">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    
+      
+    </div>
+    <img src="{{ url_for('static', filename='pokewalk.gif') }}" id="runAcross" alt="Running Pikachu">
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const inputBox = document.getElementById("userInput");
+          const chatLog = document.getElementById("chatLog");
+      
+          inputBox.addEventListener("input", () => {
+            inputBox.style.height = "auto";
+            inputBox.style.height = inputBox.scrollHeight + "px";
+          });
+      
+          window.sendMessage = async function () {
+            const userInput = inputBox.value.trim();
+            chatLog.style.display = "block";
+      
+            if (!userInput) return;
+      
+            // Append user message
+            const userMessage = document.createElement("div");
+            userMessage.className = "message user";
+            userMessage.textContent = userInput;
+            chatLog.appendChild(userMessage);
+      
+            // Clear input and reset height
+            inputBox.value = "";
+            inputBox.style.height = "auto";
+      
+            // Show "thinking..." placeholder
+            const assistantMessage = document.createElement("div");
+            assistantMessage.className = "message assistant";
+            assistantMessage.textContent = "Thinking...";
+            chatLog.appendChild(assistantMessage);
+            chatLog.scrollTop = chatLog.scrollHeight;
+      
+            try {
+              const res = await fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: userInput })
+              });
+      
+              if (!res.ok) throw new Error(`Server error: ${res.status}`);
+      
+              const data = await res.json();
+              assistantMessage.textContent = data.reply;
+            } catch (err) {
+              console.error("Fetch error:", err);
+              assistantMessage.textContent = "❌ Failed to get a response.";
+            }
+      
+            chatLog.scrollTop = chatLog.scrollHeight;
+          };
+        });
+      </script>
+      
+</body>
+</html>
+

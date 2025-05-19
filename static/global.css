@@ -1,0 +1,145 @@
+@font-face {
+    font-family: 'Pixelify';
+    src: url('PixelifySans-VariableFont_wght.ttf') format('truetype');
+  }
+  
+  body {
+    font-family: sans-serif;
+    height: 100vh;
+    background: #1A1A1A;
+    box-sizing: border-box;
+  }
+
+  #content-wrapper{
+    width: 100%;
+    height: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    transform: translateY(-50px);
+  }
+
+  h1 {
+    text-align: center;
+    font-family: "Pixelify";
+    font-weight: 700;
+    font-size: 64px;
+    color: #CF9E00;
+  }
+
+  h1 > span{
+    color: #A60000;
+  }
+
+  #heading{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #pokeball-img{
+    height: 55px;
+    width: auto
+  }
+
+  #chatLog {
+    padding: 20px;
+    height: 600px;
+    overflow-y: auto;
+    border-radius: 10px;
+    display: none;
+    overflow: auto;
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    
+  }
+
+  .message {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 20px;
+    white-space: pre-wrap;
+  }
+
+  .user {
+    background: #E9E9E9;
+    align-self: flex-end;
+    text-align: right;
+  }
+
+  .assistant {
+    background: #eaeaea00;
+    align-self: flex-start;
+    color: white;
+  }
+
+  #inputArea {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    background-color: #E9E9E9;
+    border-color: #000000;
+    border-radius: 30px;
+    padding: 10px 30px;
+    align-items: center;
+  }
+
+  #userInput {
+    flex: 1;
+    padding: 10px;
+    font-size: 1rem;
+    resize: none;
+    overflow: hidden;
+    border: none;
+    background-color: inherit;
+    box-sizing: border-box;
+  }
+
+  #button-wrapper{
+    height: 100%;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    height: inherit;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    height: 45px;
+    border-radius: 25px;
+    color: white;
+    background-color: #000000;
+    border: none;
+  }
+
+  #chatContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  textarea:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  @keyframes moveRightToLeft {
+    0% {
+      right: -100px; /* Start just off-screen */
+    }
+    100% {
+      right: 100%;   /* Move fully to the left */
+    }
+  }
+  
+  #runAcross {
+    position: fixed;
+    bottom: 0;
+    width: 150px;
+    animation: moveRightToLeft 10s linear infinite;
+  }
+  
+  
+  
