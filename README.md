@@ -2,6 +2,18 @@
 Final project for my COSC490: Introduction to Large Language Models course. This project is a Pokémon battle assistant chatbot built using Meta's LLaMA-3.1-8B-Instruct model as its foundation and ran locally with Ollama. To enhance the accuracy and legality of the generated responses, I implemented techniques such as post-generation filtering, Retrieval-Augmented Generation (RAG), and fine-tuning. The assistant includes a user-friendly web interface and can be accessed in the browser via a Flask server.
 > ⚠️ **Note:** You must have [Ollama](https://ollama.com) installed to run the model locally. Ollama is required to load the GGUF quantized model and serve it for the chatbot.
 
+> ⚠️ **Note:** You must download the `llama-3.1-8b-instruct-q4_k_m.gguf` from HuggingFace file and place it in /llama3-gguf. Your file structure should look like
+```bash
+llama3-gguf/
+├── llama-3.1-8b-instruct-q4_k_m.gguf
+└── Modelfile
+```
+
+
+## UI
+![Homepage Screenshot](static/Pokellm_Sample1.png)
+![Chat Interaction Screenshot](static/Pokellm_Sample2.png)
+
 ## Structure
 ```bash
 .
@@ -9,19 +21,19 @@ Final project for my COSC490: Introduction to Large Language Models course. This
 ├── flask_app.py                            # Flask server entry point 
 ├── pokemon_gen12_moveset.json              # legal moveset data for gen 1 & 2 used in RAG 
 ├── README.md                                     
-├── llama3-gguf                            
+├── llama3-gguf                             # llama3 model and Modelfile used to create assistant via Ollama  
 │   ├── llama-3.1-8b-instruct-q4_k_m.gguf
 │   └── Modelfile
-├── static
+├── static                                  # CSS, images, fonts
 │   ├── global.css
 │   ├── PixelifySans-VariableFont_wght.ttf
 │   ├── pokeball-removebg-preview.png
 │   └── pokewalk.gif
-└── templates
+└── templates                               # HTML and JS
     └── index.html
 ```
 
-## 🧑‍💻 Tech Stack
+## Tech Stack
 
 **Frontend:**
 - HTML5
@@ -40,7 +52,7 @@ Final project for my COSC490: Introduction to Large Language Models course. This
 - Retrieval-Augmented Generation (RAG)
 - Fine-tuning (limited scale)
 
-## 🚀 How to Run
+## How to Run
 
 ### 1. Create and Activate environment
 ```bash
@@ -60,6 +72,7 @@ Final project for my COSC490: Introduction to Large Language Models course. This
 
 ### 4. Run Flask server
 ```bash
+- Ensure Ollama server is running - Ollama serve &
 - python flask_app.py
 ```
 
