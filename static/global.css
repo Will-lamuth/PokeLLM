@@ -26,11 +26,12 @@
     font-family: "Pixelify";
     font-weight: 700;
     font-size: 64px;
-    color: #CF9E00;
+    color: #ebc033;
+    text-shadow: 2px 1px 2px rgb(255, 255, 255);
   }
 
   h1 > span{
-    color: #A60000;
+    color: #be0808;
   }
 
   #heading{
@@ -42,7 +43,8 @@
 
   #pokeball-img{
     height: 55px;
-    width: auto
+    width: auto;
+    animation: shake 5s ease-in-out infinite;
   }
 
   #chatLog {
@@ -56,6 +58,12 @@
   -ms-overflow-style: none;    
   }
 
+  .userBox{
+    width:100%;
+    display: flex;
+    justify-content: end;
+  }
+
   .message {
     margin-bottom: 15px;
     padding: 10px;
@@ -65,8 +73,8 @@
 
   .user {
     background: #E9E9E9;
-    align-self: flex-end;
-    text-align: right;
+    width: fit-content;
+    max-width: 50%;
   }
 
   .assistant {
@@ -83,7 +91,6 @@
     border-color: #000000;
     border-radius: 30px;
     padding: 10px 30px;
-    align-items: center;
   }
 
   #userInput {
@@ -97,12 +104,20 @@
     box-sizing: border-box;
   }
 
+  #input-wrapper{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+  }
+
   #button-wrapper{
     height: 100%;
     display: flex;
-    align-items: baseline;
+    align-items:end;
     justify-content: center;
-    height: inherit;
+    width: 10%;
   }
 
   button {
@@ -125,12 +140,62 @@
     box-shadow: none;
   }
 
+  #message-loader{
+    display: flex;
+    align-items: center;
+  }
+
+  #loader-ball{
+    height: 20px;
+    width: auto;
+    animation: spin .5s linear infinite
+  }
+
+  @keyframes spin{
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
   @keyframes moveRightToLeft {
     0% {
       right: -100px; /* Start just off-screen */
     }
     100% {
       right: 100%;   /* Move fully to the left */
+    }
+  }
+
+  @keyframes shake{
+    0%{
+      transform: rotate(10deg)
+    }
+    1%{
+      transform: rotate(0)
+    }
+    2%{
+      transform: rotate(0)
+    }
+    3%{
+      transform: rotate(0)
+    }
+    4%{
+      transform: rotate(0)
+    }
+    5%{
+      transform: rotate(10deg)
+    }
+    8%{
+      transform: rotate(-20deg)
+    }
+    11%{
+      transform: rotate(10deg)
+    }
+    100%{
+      transform: rotate(10deg)
     }
   }
   
@@ -140,6 +205,8 @@
     width: 150px;
     animation: moveRightToLeft 10s linear infinite;
   }
+
+
   
   
   

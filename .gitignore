@@ -1,0 +1,19 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ollama / model files
+*.gguf
+
+# Editors / OS
+.DS_Store
+.vscode/
+*.swp
+
+# Logs / temps
+*.log
+*.bak
+structure.txt

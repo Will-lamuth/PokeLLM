@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
+  <link rel="stylesheet" href="../static/global.css">
   <title>Pokémon Assistant</title>
 </head>
 <body>
@@ -15,15 +15,17 @@
         <div id="chatLog" class="chatLog"></div>
 
         <div id="inputArea">
+          <div id="input-wrapper">
             <textarea id="userInput" rows="1" placeholder="Ask for a Gen 1/2 team..."></textarea>
-            <div id="button-wrapper">
-                <button onclick="sendMessage()">Send</button>
-            </div>
+          </div>
+          <div id="button-wrapper">
+              <button onclick="sendMessage()">Send</button>
+          </div>
         </div>
     
       
     </div>
-    <img src="{{ url_for('static', filename='pokewalk.gif') }}" id="runAcross" alt="Running Pikachu">
+    <img src="../static/pokewalk.gif" id="runAcross" alt="Running Pikachu">
 
 
     <script>
@@ -32,10 +34,10 @@
           const chatLog = document.getElementById("chatLog");
       
           inputBox.addEventListener("input", () => {
-            inputBox.style.height = "auto";
-            inputBox.style.height = inputBox.scrollHeight + "px";
+              inputBox.style.height = "auto";
+              inputBox.style.height = inputBox.scrollHeight + "px";
           });
-      
+
           window.sendMessage = async function () {
             const userInput = inputBox.value.trim();
             chatLog.style.display = "block";
@@ -43,10 +45,13 @@
             if (!userInput) return;
       
             // Append user message
+            const userMessageBox = document.createElement("div");
             const userMessage = document.createElement("div");
+            userMessageBox.className = "userBox"
             userMessage.className = "message user";
             userMessage.textContent = userInput;
-            chatLog.appendChild(userMessage);
+            userMessageBox.appendChild(userMessage);
+            chatLog.appendChild(userMessageBox);
       
             // Clear input and reset height
             inputBox.value = "";
@@ -55,7 +60,7 @@
             // Show "thinking..." placeholder
             const assistantMessage = document.createElement("div");
             assistantMessage.className = "message assistant";
-            assistantMessage.textContent = "Thinking...";
+            assistantMessage.innerHTML = "<a id='message-loader'><img id='loader-ball' src='../static/pokeball-removebg-preview.png'><img id='loader-ball' src='../static/pokeball-removebg-preview.png'><img id='loader-ball' src='../static/pokeball-removebg-preview.png'></a>";
             chatLog.appendChild(assistantMessage);
             chatLog.scrollTop = chatLog.scrollHeight;
       
@@ -69,15 +74,32 @@
               if (!res.ok) throw new Error(`Server error: ${res.status}`);
       
               const data = await res.json();
-              assistantMessage.textContent = data.reply;
+              console.log(data.reply);
+              typeEffect(assistantMessage, data.reply, 5);
+
             } catch (err) {
               console.error("Fetch error:", err);
-              assistantMessage.textContent = "❌ Failed to get a response.";
+              assistantMessage.textContent = "Failed to get a response.";
             }
       
             chatLog.scrollTop = chatLog.scrollHeight;
           };
         });
+
+        function typeEffect(element, text, speed) {
+            element.textContent = "";
+            let i = 0;
+
+            function type() {
+              if (i < text.length) {
+                element.textContent += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+              }
+            }
+
+            type();
+          }
       </script>
       
 </body>

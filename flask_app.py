@@ -16,7 +16,7 @@ def chat():
     messages.append({"role": "user", "content": grounded_prompt})
     print("flask")
     reply = query_llm(model_name, messages)
-    print("flask2")
+    print("reply gathered")
     messages.append({"role": "assistant", "content": reply})
     return jsonify({"reply": reply})
 
